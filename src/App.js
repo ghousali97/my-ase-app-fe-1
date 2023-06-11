@@ -1,28 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Write from './pages/Write';
+import Single from './pages/Single';
+import { AuthContext } from './context/authContext';
+
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>This is my ASE hosting</h1>
-        <h2>Environment: {process.env.NODE_ENV}</h2>
-        <h2>Retrieved variable: {process.env.REACT_APP_TEST_VAR}</h2>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  const { currentUser } = useContext(AuthContext);
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/register",
+        element: <Register />
+      },
+      {
+        path: "/write",
+        element: currentUser ? <Write /> : <Navigate to="/login" replace />
+      }, {
+        path: "/post/:id",
+        element: <Single />
+      }
+
+    ]
   );
+
+  return (<div className="app">
+    <div className='container'>
+      <RouterProvider router={router} />
+    </div>
+  </div>);
+
+
 }
 
 export default App;

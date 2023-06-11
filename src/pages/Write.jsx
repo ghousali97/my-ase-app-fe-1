@@ -5,7 +5,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import moment from "moment";
 import { authHeader } from '../services/auth-service';
 const Write = () => {
 
@@ -16,7 +15,6 @@ const Write = () => {
     const [title, setTitle] = React.useState(state?.title || "");
     const [value, setValue] = React.useState(state?.desc || "");
     const [file, setFile] = React.useState(null);
-    const [imgUrl, setImgUrl] = React.useState(state?.img || "");
     const [cat, setCat] = React.useState(state?.cat || "");
 
     async function upload() {

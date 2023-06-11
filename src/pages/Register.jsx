@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 
@@ -19,7 +19,6 @@ function Register() {
         message: ""
     });
 
-    const navigate = useNavigate();
 
 
     function handleChange(event) {

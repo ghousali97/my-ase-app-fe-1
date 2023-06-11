@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Edit from "../images/edit.png";
@@ -15,7 +15,6 @@ function Single() {
     const { id } = useParams();
     const { currentUser } = useContext(AuthContext);
     const [post, setPost] = React.useState([]);
-    const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")) || null);
 
     const [error, setError] = React.useState({
         error: false,
@@ -52,31 +51,34 @@ function Single() {
 
     return <div><Header />
         <div className="single">
-            <div className="content">
-                <img src={'https://my-ase-node-be-1.azurewebsites.net/uploads/' + post.img} alt="" />
-                <div className="user">
-                    {post.userImg && <img
-                        src={'https://my-ase-node-be-1.azurewebsites.net/uploads/' + post.img}
-                        alt=""
-                    />}
-                    <div className="info">
-                        <span>{post.username}</span>
-                        <p>Posted {moment(post.date).fromNow()}</p>
-                    </div>
-                    {currentUser?.username === post.username && (
-                        <div className="edit">
-                            <Link to={"/write"} state={post}>
-                                <img src={Edit} alt="" />
-                            </Link>
-                            <img onClick={handleDelete} src={Delete} alt="" />
+            {
+                error.error ? <h1>{error.message}</h1> : <div className="content">
+                    <img src={'https://my-ase-node-be-1.azurewebsites.net/uploads/' + post.img} alt="" />
+                    <div className="user">
+                        {post.userImg && <img
+                            src={'https://my-ase-node-be-1.azurewebsites.net/uploads/' + post.img}
+                            alt=""
+                        />}
+                        <div className="info">
+                            <span>{post.username}</span>
+                            <p>Posted {moment(post.date).fromNow()}</p>
                         </div>
-                    )}
+                        {currentUser?.username === post.username && (
+                            <div className="edit">
+                                <Link to={"/write"} state={post}>
+                                    <img src={Edit} alt="" />
+                                </Link>
+                                <img onClick={handleDelete} src={Delete} alt="" />
+                            </div>
+                        )}
+                    </div>
+                    <h1>{post.title}</h1>
+                    <p>
+                        {getText(post.desc)}
+                    </p>
                 </div>
-                <h1>{post.title}</h1>
-                <p>
-                    {getText(post.desc)}
-                </p>
-            </div>
+            }
+
 
         </div>
         <Footer />

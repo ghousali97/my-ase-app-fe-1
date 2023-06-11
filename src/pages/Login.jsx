@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import Axios from 'axios';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 //Axios.defaults.baseURL = "https://my-ase-node-be-1.azurewebsites.net/";
